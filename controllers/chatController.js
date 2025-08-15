@@ -26,7 +26,7 @@ exports.getUserContacts = async (req, res) => {
           unreadMessages: chat.unreadMessages ? 
             (isSender ? chat.unreadMessages.sender : chat.unreadMessages.receiver) : 0,
           phoneNo: otherUser.phoneNo,
-          name: otherUser.username,
+          name: otherUser.name,
           status: otherUser.status
         };
       } catch (err) {
