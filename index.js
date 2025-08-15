@@ -15,11 +15,16 @@ const allContacts = require("./routes/allContactsRoutes");
 
 
 
-const port = process.env.port;
-const socketport = process.env.socketport;
+const PORT = process.env.PORT;
+
 
 const app = express();
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:5173", // frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Routes
@@ -32,10 +37,11 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "*", // replace "*" with your frontend URL in production
+    origin: "http://localhost:5173",
     methods: ["GET", "POST"],
   },
 });
+
 
 let connectedUsers = [];
 
@@ -378,13 +384,13 @@ socket.on("deleteMessage", async ({ messageId, chatId }) => {
 });
 
 
-server.listen(socketport, () => {
+server.listen(PORT, () => {
   console.log("WebSocket server running on port 5000");
 });
 
-app.listen(port, () => {
-  console.log("HTTP server running on port 3000");
-});
+// app.listen(port, () => {
+//   console.log("HTTP server running on port 3000");
+// });
 
 connectDB();
 createAllSchemas();
