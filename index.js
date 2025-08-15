@@ -16,11 +16,12 @@ const allContacts = require("./routes/allContactsRoutes");
 
 
 const PORT = process.env.PORT;
+const frontendurl = process.env.FRONTEND_URL;
 
 
 const app = express();
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL
+  origin: frontendurl, // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -37,7 +38,7 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: frontendurl,
     methods: ["GET", "POST"],
   },
 });
