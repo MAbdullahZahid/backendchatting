@@ -15,7 +15,8 @@ const allContacts = require("./routes/allContactsRoutes");
 
 
 
-const port = process.env.PORT || 3000;
+const port = process.env.port;
+const socketport = process.env.socketport;
 
 const app = express();
 app.use(cors());
@@ -377,13 +378,13 @@ socket.on("deleteMessage", async ({ messageId, chatId }) => {
 });
 
 
-server.listen(5000, () => {
+server.listen(socketport, () => {
   console.log("WebSocket server running on port 5000");
 });
 
-// app.listen(3000, () => {
-//   console.log("HTTP server running on port 3000");
-// });
+app.listen(port, () => {
+  console.log("HTTP server running on port 3000");
+});
 
 connectDB();
 createAllSchemas();
