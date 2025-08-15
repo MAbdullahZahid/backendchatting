@@ -21,7 +21,7 @@ const frontendurl = process.env.FRONTEND_URL;
 
 const app = express();
 app.use(cors({
-  origin: frontendurl, // frontend URL
+  origin: "*", // frontend URL
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -38,7 +38,7 @@ const { Server } = require("socket.io");
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: frontendurl,
+    origin: "*",
     methods: ["GET", "POST"],
   },
 });
